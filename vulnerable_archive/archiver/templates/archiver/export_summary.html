@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Export Summary{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2 class="mb-4">Export AI Summary</h2>
+
+        <div class="card">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="topic" class="form-label">Summary Topic</label>
+                        <input type="text" class="form-control" id="topic" name="topic" placeholder="e.g., The history of the internet" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="filename_hint" class="form-label">Filename Hint</label>
+                        <input type="text" class="form-control" id="filename_hint" name="filename_hint" placeholder="e.g., history.txt" required>
+                        <div class="form-text">Suggest a filename for the AI to use.</div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Generate & Export</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

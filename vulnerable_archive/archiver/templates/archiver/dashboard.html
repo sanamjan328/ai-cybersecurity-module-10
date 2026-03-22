@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="mb-4">Dashboard</h2>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                Overview
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Welcome, {{ user.username }}!</h5>
+                <p class="card-text">This application allows you to archive websites and view them later.</p>
+                
+                <div class="d-flex gap-2">
+                    <a href="{% url 'archive_list' %}" class="btn btn-primary">View Archives</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                Developer Tools
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">API Token Generation</h5>
+                <p class="card-text">
+                    Generate a JSON Web Token (JWT) for API access. 
+                    <br>
+                </p>
+                <a href="{% url 'generate_token' %}" class="btn btn-outline-danger" target="_blank">Generate Token</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

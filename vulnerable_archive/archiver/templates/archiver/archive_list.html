@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}My Archives{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>My Archives</h2>
+            <a href="{% url 'add_archive' %}" class="btn btn-success">New Archive</a>
+        </div>
+
+        {% if archives %}
+            <div class="list-group">
+                {% for archive in archives %}
+                    <div class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ archive.title|default:"No Title" }}</h5>
+                            <small>{{ archive.created_at|date:"F j, Y, g:i a" }}</small>
+                        </div>
+                        <p class="mb-1 text-truncate">{{ archive.url }}</p>
+                        <div class="mt-2">
+                            <a href="{% url 'view_archive' archive.id %}" class="btn btn-sm btn-info">View Content</a>
+                            <a href="{% url 'edit_archive' archive.id %}" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="{% url 'delete_archive' archive.id %}" class="btn btn-sm btn-danger">Delete</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                No archives found. Start by archiving a URL!
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

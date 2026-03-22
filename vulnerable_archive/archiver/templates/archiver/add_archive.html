@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Add New Archive{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3>Archive a Website</h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="url" class="form-label">URL to Archive</label>
+                        <input type="url" class="form-control" id="url" name="url" placeholder="https://example.com" required>
+                        <div class="form-text">We will fetch and store the HTML content of this page.</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Notes</label>
+                        <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Add your notes here..."></textarea>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">Archive URL</button>
+                        <a href="{% url 'archive_list' %}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

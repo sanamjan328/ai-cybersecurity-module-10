@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Ask the Database{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <h2 class="mb-4">Ask the Database (Natural Language Search)</h2>
+
+        <form method="post" class="mb-4">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="prompt" class="form-label">What would you like to know about the archives?</label>
+                <textarea class="form-control" id="prompt" name="prompt" rows="2" placeholder="e.g., Show me all archives created yesterday">{{ prompt }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Ask AI</button>
+        </form>
+
+        {% if sql_query %}
+            <div class="card mb-4">
+                <div class="card-header bg-secondary text-white">
+                    Generated SQL
+                </div>
+                <div class="card-body bg-light">
+                    <code>{{ sql_query }}</code>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    Results
+                </div>
+                <div class="card-body">
+                    {% if answer and answer.0.items %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        {% for key in answer.0.keys %}
+                                            <th>{{ key }}</th>
+                                        {% endfor %}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for row in answer %}
+                                        <tr>
+                                            {% for value in row.values %}
+                                                <td>{{ value|truncatechars:100 }}</td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% elif answer %}
+                        <div class="alert alert-info mb-0">
+                            {{ answer }}
+                        </div>
+                    {% else %}
+                        <p class="mb-0">Query returned no rows.</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

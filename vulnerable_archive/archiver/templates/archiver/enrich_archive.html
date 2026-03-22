@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Enrich Archive{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <h2 class="mb-4">Enrich Archive Data</h2>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                Target Archive
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ archive.title|default:archive.url }}</h5>
+                <p class="card-text text-muted">Created: {{ archive.created_at }}</p>
+                <div class="mb-3">
+                    <strong>My Secret Notes:</strong>
+                    <div class="p-2 bg-light border">{{ archive.notes }}</div>
+                </div>
+            </div>
+        </div>
+
+        <form method="post" class="mb-4">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="instruction" class="form-label">Instruction for AI</label>
+                <textarea class="form-control" id="instruction" name="instruction" rows="2">Summarize this content and find related links.</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Process with AI</button>
+            <a href="{% url 'view_archive' archive.id %}" class="btn btn-secondary">Back to Archive</a>
+        </form>
+
+        {% if llm_response %}
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    AI Response
+                </div>
+                <div class="card-body">
+                    <pre style="white-space: pre-wrap;">{{ llm_response }}</pre>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+services:
+  app-mod10:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - OLLAMA_HOST=http://ollama-mod10:11434
+    volumes:
+      # Mount the notes directory to persist the database
+      - ./vulnerable_archive:/app/vulnerable_archive
+    command: python manage.py runserver 0.0.0.0:8000
+
+
+  # For GPU instructions https://docs.ollama.com/docker
+  ollama-mod10:
+    image: ollama/ollama:0.13.1-rc0@sha256:661aa2ffcced839ac5d132c52ee6c7d609a601d821ed8e6a4e651fdff79c9c0a
+    ports:
+      - "11434:11434" # Expose the Ollama API port to the host for debugging
+    volumes:
+      - ollama_data:/root/.ollama # Persist models in a named volume
+
+volumes:
+  ollama_data:

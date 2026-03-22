@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}View Archive{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'archive_list' %}">Archives</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ archive.title|default:"Untitled" }}</li>
+            </ol>
+        </nav>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h1 class="display-5">{{ archive.title|default:"No Title" }}</h1>
+                <p class="text-muted">
+                    Source: <a href="{{ archive.url }}" target="_blank" rel="noopener noreferrer">{{ archive.url }}</a><br>
+                    Archived on: {{ archive.created_at }}<br>
+                    Owner: {{ archive.user.username }}
+                </p>
+
+                <hr>
+
+                <h3>Notes</h3>
+                <div class="alert alert-light border">
+                    {{ archive.notes|linebreaksbr }}
+                </div>
+
+                <hr>
+
+                <h3>Archived Content</h3>
+                <div class="border p-3 bg-white">
+                    <pre style="white-space: pre-wrap;">{{ archive.content }}</pre>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'enrich_archive' archive.id %}" class="btn btn-info">Enrich with AI</a>
+                <a href="{% url 'edit_archive' archive.id %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'delete_archive' archive.id %}" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
