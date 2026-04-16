@@ -1,11 +1,44 @@
-# Vulnerable Archive - Security Demo App
+# 🚨 Vulnerable Archive -- Django Security Lab with LLM Risks
 
-This is a **deliberately vulnerable** Django application designed to demonstrate both traditional web vulnerabilities and emerging risks associated with Large Language Model (LLM) integrations.
+## 📌 Overview
 
-**WARNING: DO NOT RUN THIS APPLICATION IN A PRODUCTION ENVIRONMENT OR ON A PUBLICLY ACCESSIBLE SERVER.**
+**Vulnerable Archive** is an intentionally insecure Django web
+application designed to demonstrate both **classic web vulnerabilities**
+and **modern risks introduced by Large Language Model (LLM)
+integrations**.
 
-## Features
+## 🎯 Objectives
 
-- **Website Archiving**: Save URLs, titles, and HTML content.
-- **User Management**: Register and login.
-- **AI Integration**: Ask questions about your data, generate summaries, and enrich content using a local LLM.
+-   Demonstrate real-world web vulnerabilities
+-   Highlight security risks in AI-powered applications
+-   Provide secure vs insecure examples
+
+## ⚠️ Vulnerabilities
+
+-   IDOR
+-   SQL Injection
+-   XSS
+-   SSRF
+-   Weak JWT
+-   Unsafe LLM → SQL
+-   Arbitrary File Write
+
+## 🛠️ Fixes
+
+-   Use ORM
+-   Escape inputs
+-   Restrict LLM outputs
+-   Validate URLs
+-   Use environment variables
+
+## 🚀 Run
+
+``` bash
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
+
+## ⚠️ Disclaimer
+
+For educational use only.
